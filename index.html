@@ -1,0 +1,456 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ceiling Fan Troubleshooting Game</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background-color: #1a1a2e;
+            color: #eaeaea;
+            font-family: Arial, sans-serif;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #ff6b35;
+            font-size: 48px;
+        }
+        
+        button {
+            background-color: #ff6b35;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            margin: 10px;
+            cursor: pointer;
+            border-radius: 8px;
+        }
+
+        button:hover {
+            background-color: #f7931e;
+            transform: scale(1.05);
+        }
+
+        #welcome-screen {
+            text-align: center;
+            max-width: 600px;
+            margin: 50px auto;
+        }
+
+        h2 {
+            color: #f7931e;
+            font-size: 32px;
+        }
+
+        h3 {
+            color: #ff6b35;
+            margin-top: 30px;
+        }
+
+        #game-screen {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        #game-info {
+            display: flex;
+            justify-content: space-around;
+            background-color: #2a2a3e;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        #components-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .component-card {
+            background-color: #2a2a3e;
+            border: 3px solid #ff6b35;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .component-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.3);
+        }
+
+        .component-icon {
+            font-size: 80px;
+            margin-bottom: 15px;
+        }
+
+        .component-card h3 {
+            color: #ff6b35;
+            margin: 10px 0;
+        }
+
+        .component-card p {
+            color: #f7931e;
+            margin: 0;
+        }
+
+        #modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+        }
+
+        #modal-content {
+            background-color: #2a2a3e;
+            border: 3px solid #ff6b35;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 600px;
+            position: relative;
+        }
+
+        #close-modal {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 36px;
+            color: #ff6b35;
+            cursor: pointer;
+        }
+
+        #close-modal:hover {
+            color: #f7931e;
+        }
+
+        #modal-title {
+            color: #ff6b35;
+            margin-bottom: 20px;
+        }
+
+        #modal-body {
+            color: #eaeaea;
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+
+        #modal-button {
+            background-color: #2ecc71;
+            width: 100%;
+        }
+
+        .spark {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background-color: #FFD700;
+            border-radius: 50%;
+            box-shadow: 0 0 20px #FFD700;
+            pointer-events: none;
+            animation: sparkFly 0.8s ease-out forwards;
+            z-index: 9999;
+        }
+
+        @keyframes sparkFly {
+            0% {
+                transform: translate(0, 0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--tx), var(--ty)) scale(0);
+                opacity: 0;
+            }
+        }
+
+        #win-screen, #lose-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .result-content {
+            background-color: #2a2a3e;
+            border: 5px solid #ff6b35;
+            border-radius: 30px;
+            padding: 60px;
+            text-align: center;
+            max-width: 600px;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .result-content h1 {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+
+        .result-content p {
+            font-size: 24px;
+            margin: 20px 0;
+        }
+
+        .fan-animation {
+            font-size: 120px;
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+    </style>
+    
+</head>
+<body>
+    
+    <h1>⚡ Ceiling Fan Troubleshooting Game</h1>
+    
+    <div id="welcome-screen">
+        <h2>Welcome, Electrician!</h2>
+        
+        <p>A homeowner's ceiling fan isn't working. You must troubleshoot and find the problem!</p>
+        
+        <p><strong>⚠️ Warning:</strong> Choose carefully! Wrong attempts cost lives and trigger sparks!</p>
+        
+        <h3>Select Difficulty:</h3>
+        
+        <button onclick="startGame('easy')">Easy - 1 Problem</button>
+        <button onclick="startGame('medium')">Medium - 2 Problems</button>
+        <button onclick="startGame('hard')">Hard - 3 Problems</button>
+    </div>
+
+    <div id="game-screen" style="display: none;">
+        <div id="game-info">
+            <div>Difficulty: <span id="difficulty-display">-</span></div>
+            <div>Lives: <span id="lives-display">❤️❤️</span></div>
+            <div>Problems Fixed: <span id="progress-display">0 / 0</span></div>
+        </div>
+        
+        <div id="components-grid">
+            <div class="component-card" onclick="inspectComponent('wall-switch')">
+                <div class="component-icon">💡</div>
+                <h3>Wall Switch</h3>
+                <p>Click to inspect</p>
+            </div>
+            
+            <div class="component-card" onclick="inspectComponent('circuit-breaker')">
+                <div class="component-icon">⚡</div>
+                <h3>Circuit Breaker</h3>
+                <p>Click to inspect</p>
+            </div>
+            
+            <div class="component-card" onclick="inspectComponent('junction-box')">
+                <div class="component-icon">🔌</div>
+                <h3>Junction Box</h3>
+                <p>Click to inspect</p>
+            </div>
+            
+            <div class="component-card" onclick="inspectComponent('ceiling-fan')">
+                <div class="component-icon">🌀</div>
+                <h3>Ceiling Fan</h3>
+                <p>Click to inspect</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal" style="display: none;">
+        <div id="modal-content">
+            <span id="close-modal" onclick="closeModal()">&times;</span>
+            <h2 id="modal-title"></h2>
+            <div id="modal-body"></div>
+            <button id="modal-button" onclick="attemptFix()">Attempt Repair</button>
+        </div>
+    </div>
+
+    <div id="win-screen" style="display: none;">
+        <div class="result-content">
+            <h1>🎉 SUCCESS!</h1>
+            <p>You successfully troubleshot and fixed all the problems!</p>
+            <p class="fan-animation">🌀</p>
+            <button onclick="location.reload()">Play Again</button>
+        </div>
+    </div>
+
+    <div id="lose-screen" style="display: none;">
+        <div class="result-content">
+            <h1>💥 GAME OVER</h1>
+            <p>You ran out of lives! The homeowner is not happy...</p>
+            <p>Remember: Always turn off the power before working on electrical components!</p>
+            <button onclick="location.reload()">Try Again</button>
+        </div>
+    </div>
+    
+    <script>
+        let gameState = {
+            difficulty: '',
+            currentLives: 2,
+            problemsToFix: 0,
+            problemsFixed: 0,
+            activeProblems: [],
+            currentComponent: null
+        };
+        
+        function startGame(difficulty) {
+            gameState.difficulty = difficulty;
+            
+            if (difficulty === 'easy') {
+                gameState.problemsToFix = 1;
+            } else if (difficulty === 'medium') {
+                gameState.problemsToFix = 2;
+            } else if (difficulty === 'hard') {
+                gameState.problemsToFix = 3;
+            }
+            
+            gameState.currentLives = 2;
+            gameState.problemsFixed = 0;
+            gameState.activeProblems = selectRandomProblems(gameState.problemsToFix);
+            
+            console.log('Problems selected:', gameState.activeProblems);
+            
+            document.getElementById('welcome-screen').style.display = 'none';
+            document.getElementById('game-screen').style.display = 'block';
+            
+            document.getElementById('difficulty-display').textContent = difficulty.toUpperCase();
+            document.getElementById('progress-display').textContent = '0 / ' + gameState.problemsToFix;
+        }
+
+        function selectRandomProblems(count) {
+            const allComponents = ['wall-switch', 'circuit-breaker', 'junction-box', 'ceiling-fan'];
+            const shuffled = allComponents.sort(() => Math.random() - 0.5);
+            return shuffled.slice(0, count);
+        }
+        
+        function inspectComponent(componentId) {
+            gameState.currentComponent = componentId;
+            
+            const componentInfo = {
+                'wall-switch': {
+                    name: '💡 Wall Switch',
+                    description: 'The wall switch controls power flow to the ceiling fan. If it\'s in the OFF position, no electricity reaches the fan. Switches are simple mechanical devices that complete or break the electrical circuit.'
+                },
+                'circuit-breaker': {
+                    name: '⚡ Circuit Breaker',
+                    description: 'The circuit breaker protects the electrical circuit from overload. If too much current flows through the circuit, the breaker trips to prevent damage or fire. The bedroom circuit controls power to the fan.'
+                },
+                'junction-box': {
+                    name: '🔌 Junction Box',
+                    description: 'The junction box is where electrical wires connect. Wire nuts secure the connections. If wires become loose or disconnected, the fan won\'t receive power. Look for gaps in the wire connections.'
+                },
+                'ceiling-fan': {
+                    name: '🌀 Ceiling Fan',
+                    description: 'The ceiling fan has a pull chain that controls the internal switch. If the pull chain is in the OFF position, the fan won\'t spin even if power is reaching it. The pull chain must be pulled to turn the fan on.'
+                }
+            };
+            
+            const info = componentInfo[componentId];
+            
+            document.getElementById('modal-title').textContent = info.name;
+            document.getElementById('modal-body').textContent = info.description;
+            document.getElementById('modal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+
+        function showSparks() {
+            for (let i = 0; i < 20; i++) {
+                const spark = document.createElement('div');
+                spark.className = 'spark';
+                
+                const angle = (Math.PI * 2 * i) / 20;
+                const distance = 100 + Math.random() * 150;
+                const tx = Math.cos(angle) * distance;
+                const ty = Math.sin(angle) * distance;
+                
+                spark.style.left = '50%';
+                spark.style.top = '50%';
+                spark.style.setProperty('--tx', tx + 'px');
+                spark.style.setProperty('--ty', ty + 'px');
+                
+                document.body.appendChild(spark);
+                
+                setTimeout(() => spark.remove(), 800);
+            }
+        }
+
+        function attemptFix() {
+            if (gameState.activeProblems.includes(gameState.currentComponent)) {
+                gameState.problemsFixed++;
+                gameState.currentLives = 2;
+                
+                const index = gameState.activeProblems.indexOf(gameState.currentComponent);
+                gameState.activeProblems.splice(index, 1);
+                
+                document.getElementById('progress-display').textContent = gameState.problemsFixed + ' / ' + gameState.problemsToFix;
+                
+                closeModal();
+                
+                if (gameState.problemsFixed === gameState.problemsToFix) {
+                    setTimeout(() => {
+                        document.getElementById('game-screen').style.display = 'none';
+                        document.getElementById('win-screen').style.display = 'flex';
+                    }, 500);
+                }
+            } else {
+                closeModal();
+                showSparks();
+                
+                setTimeout(() => {
+                    gameState.currentLives--;
+                    
+                    const hearts = '❤️'.repeat(gameState.currentLives);
+                    document.getElementById('lives-display').textContent = hearts;
+                    
+                    if (gameState.currentLives === 0) {
+                        setTimeout(() => {
+                            document.getElementById('game-screen').style.display = 'none';
+                            document.getElementById('lose-screen').style.display = 'flex';
+                        }, 1000);
+                    } else {
+                        alert('⚡ YOU DIDN\'T TURN OFF THE POWER!\n\nWrong component! Lives remaining: ' + gameState.currentLives);
+                    }
+                }, 500);
+                return;
+            }
+        }
+    </script>
+    
+</body>
+</html>
