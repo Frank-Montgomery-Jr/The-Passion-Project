@@ -234,6 +234,246 @@
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
         }
+
+        #repair-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.95);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 200;
+}
+
+#repair-modal-content {
+    background-color: #2a2a3e;
+    border: 3px solid #ff6b35;
+    border-radius: 20px;
+    padding: 40px;
+    max-width: 500px;
+    text-align: center;
+}
+
+#close-repair-modal {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 36px;
+    color: #ff6b35;
+    cursor: pointer;
+}
+
+#close-repair-modal:hover {
+    color: #f7931e;
+}
+
+#repair-interface {
+    min-height: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 30px 0;
+}
+
+#complete-repair-btn {
+    background-color: #2ecc71;
+    margin-top: 20px;
+}
+
+.switch-container {
+    perspective: 1000px;
+}
+
+.switch-plate {
+    width: 150px;
+    height: 220px;
+    background: linear-gradient(145deg, #e0e0e0, #c0c0c0);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    position: relative;
+}
+
+.switch-toggle {
+    width: 60px;
+    height: 90px;
+    background: linear-gradient(145deg, #555, #333);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    transform: rotate(-15deg);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+}
+
+.switch-toggle:hover {
+    transform: rotate(-15deg) scale(1.05);
+}
+
+.switch-toggle.on {
+    background: linear-gradient(145deg, #4CAF50, #388E3C);
+    transform: rotate(15deg);
+    box-shadow: 0 0 30px rgba(76, 175, 80, 0.8);
+}
+
+.breaker-panel {
+    width: 200px;
+    background: linear-gradient(145deg, #3a3a3a, #2a2a2a);
+    border: 3px solid #555;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.breaker-row {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+
+.breaker-switch {
+    width: 40px;
+    height: 60px;
+    background: linear-gradient(145deg, #888, #666);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+}
+
+.breaker-switch.tripped {
+    background: linear-gradient(145deg, #d32f2f, #b71c1c);
+    box-shadow: 0 0 20px rgba(211, 47, 47, 0.6);
+}
+
+.breaker-switch:hover {
+    transform: scale(1.05);
+}
+
+.breaker-label {
+    color: #ccc;
+    font-size: 12px;
+    text-align: center;
+}
+
+.junction-box {
+    width: 250px;
+    height: 200px;
+    background: linear-gradient(145deg, #e0e0e0, #c0c0c0);
+    border: 3px solid #888;
+    border-radius: 10px;
+    padding: 20px;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.wire {
+    width: 200px;
+    height: 8px;
+    margin: 15px auto;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+}
+
+.wire.red {
+    background: linear-gradient(90deg, #d32f2f 0%, #d32f2f 45%, transparent 45%, transparent 55%, #d32f2f 55%, #d32f2f 100%);
+}
+
+.wire.red.connected {
+    background: #d32f2f;
+    box-shadow: 0 0 15px rgba(211, 47, 47, 0.6);
+}
+
+.wire.black {
+    background: linear-gradient(90deg, #212121 0%, #212121 45%, transparent 45%, transparent 55%, #212121 55%, #212121 100%);
+}
+
+.wire.black.connected {
+    background: #212121;
+    box-shadow: 0 0 15px rgba(33, 33, 33, 0.6);
+}
+
+.wire.white {
+    background: linear-gradient(90deg, #f5f5f5 0%, #f5f5f5 45%, transparent 45%, transparent 55%, #f5f5f5 55%, #f5f5f5 100%);
+}
+
+.wire.white.connected {
+    background: #f5f5f5;
+    box-shadow: 0 0 15px rgba(245, 245, 245, 0.6);
+}
+
+.wire:hover:not(.connected) {
+    transform: scale(1.05);
+}
+
+.wire-label {
+    position: absolute;
+    left: -30px;
+    top: -2px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.fan-container {
+    text-align: center;
+}
+
+.fan-body {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 20px;
+    background: radial-gradient(circle, #666, #333);
+    border-radius: 50%;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.pull-chain-container {
+    margin-top: 20px;
+}
+
+.pull-chain {
+    width: 3px;
+    height: 80px;
+    background: linear-gradient(180deg, #888, #555);
+    margin: 0 auto 5px;
+    border-radius: 2px;
+}
+
+.chain-knob {
+    width: 25px;
+    height: 25px;
+    background: linear-gradient(145deg, #ffcc00, #ff9900);
+    border-radius: 50%;
+    margin: 0 auto;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.4);
+}
+
+.chain-knob:hover {
+    transform: scale(1.15);
+    box-shadow: 0 5px 15px rgba(255, 204, 0, 0.6);
+}
+
+.chain-knob.pulled {
+    background: linear-gradient(145deg, #4CAF50, #388E3C);
+    box-shadow: 0 0 20px rgba(76, 175, 80, 0.8);
+}
+
+
+
+
+
+
+
     </style>
     
 </head>
@@ -257,10 +497,11 @@
 
     <div id="game-screen" style="display: none;">
         <div id="game-info">
-            <div>Difficulty: <span id="difficulty-display">-</span></div>
-            <div>Lives: <span id="lives-display">❤️❤️</span></div>
-            <div>Problems Fixed: <span id="progress-display">0 / 0</span></div>
-        </div>
+    <div>Difficulty: <span id="difficulty-display">-</span></div>
+    <div>Time: <span id="timer-display">--</span></div>
+    <div>Lives: <span id="lives-display">❤️❤️</span></div>
+    <div>Problems Fixed: <span id="progress-display">0 / 0</span></div>
+</div>
         
         <div id="components-grid">
             <div class="component-card" onclick="inspectComponent('wall-switch')">
@@ -298,6 +539,17 @@
         </div>
     </div>
 
+    <div id="repair-modal" style="display: none;">    
+    <div id="repair-modal-content">
+        <span id=" close=repair-modal" onclick="closeRepairModal()">&times;</span>
+        <h2 id="repair-title">Fix the Component</h2>
+        <div id="repair-interface"></div>
+        <button id="complete-repair-btn" onclick="completeRepair()" style="display: none;">Complete Repair</button>
+    </div>
+</div>
+
+     
+
     <div id="win-screen" style="display: none;">
         <div class="result-content">
             <h1>🎉 SUCCESS!</h1>
@@ -319,22 +571,31 @@
     <script>
         let gameState = {
             difficulty: '',
-            currentLives: 2,
-            problemsToFix: 0,
-            problemsFixed: 0,
-            activeProblems: [],
-            currentComponent: null
-        };
+    currentLives: 2,
+    problemsToFix: 0,
+    problemsFixed: 0,
+    activeProblems: [],
+    currentComponent: null,
+    timeLimit: 0,
+    timeRemaining: 0,
+    timerInterval: null
+        
+};
+
         
         function startGame(difficulty) {
             gameState.difficulty = difficulty;
             
             if (difficulty === 'easy') {
                 gameState.problemsToFix = 1;
+                gameState.timeLimit = 30;
             } else if (difficulty === 'medium') {
                 gameState.problemsToFix = 2;
+                gameState.timeLimit = 45;
+
             } else if (difficulty === 'hard') {
                 gameState.problemsToFix = 3;
+                gameState.timeLimit = 60;
             }
             
             gameState.currentLives = 2;
@@ -348,6 +609,8 @@
             
             document.getElementById('difficulty-display').textContent = difficulty.toUpperCase();
             document.getElementById('progress-display').textContent = '0 / ' + gameState.problemsToFix;
+
+            startTimer();
         }
 
         function selectRandomProblems(count) {
@@ -390,67 +653,326 @@
         }
 
         function showSparks() {
-            for (let i = 0; i < 20; i++) {
-                const spark = document.createElement('div');
-                spark.className = 'spark';
-                
-                const angle = (Math.PI * 2 * i) / 20;
-                const distance = 100 + Math.random() * 150;
-                const tx = Math.cos(angle) * distance;
-                const ty = Math.sin(angle) * distance;
-                
-                spark.style.left = '50%';
-                spark.style.top = '50%';
-                spark.style.setProperty('--tx', tx + 'px');
-                spark.style.setProperty('--ty', ty + 'px');
-                
-                document.body.appendChild(spark);
-                
-                setTimeout(() => spark.remove(), 800);
-            }
+    for (let i = 0; i < 20; i++) {
+        const spark = document.createElement('div');
+        spark.className = 'spark';
+        
+        const angle = (Math.PI * 2 * i) / 20;
+        const distance = 100 + Math.random() * 150;
+        const tx = Math.cos(angle) * distance;
+        const ty = Math.sin(angle) * distance;
+        
+        spark.style.left = '50%';
+        spark.style.top = '50%';
+        spark.style.setProperty('--tx', tx + 'px');
+        spark.style.setProperty('--ty', ty + 'px');
+        
+        document.body.appendChild(spark);
+        
+        setTimeout(() => spark.remove(), 800);
+    }
+}
+
+    function playBzztSound() {    
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    const oscillator = audioContext.createOscillator();
+    const gainNode = audioContext.createGain();
+    
+    oscillator.connect(gainNode);
+    gainNode.connect(audioContext.destination);
+    
+    oscillator.type = 'sawtooth';
+    oscillator.frequency.setValueAtTime(100, audioContext.currentTime);
+    oscillator.frequency.exponentialRampToValueAtTime(50, audioContext.currentTime + 0.2);
+    
+    gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
+    
+    oscillator.start(audioContext.currentTime);
+    oscillator.stop(audioContext.currentTime + 0.2);
+
+
+}
+
+function playWindSound() {    
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    const bufferSize = audioContext.sampleRate * 2;
+    const noiseBuffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);
+    const output = noiseBuffer.getChannelData(0);
+    
+    for (let i = 0; i < bufferSize; i++) {
+        output[i] = Math.random() * 2 - 1;
+    }
+    
+    const whiteNoise = audioContext.createBufferSource();
+    whiteNoise.buffer = noiseBuffer;
+    whiteNoise.loop = true;
+    
+    const bandpass = audioContext.createBiquadFilter();
+    bandpass.type = 'bandpass';
+    bandpass.frequency.value = 1000;
+    
+    const gainNode = audioContext.createGain();
+    gainNode.gain.value = 0.15;
+    
+    whiteNoise.connect(bandpass);
+    bandpass.connect(gainNode);
+    gainNode.connect(audioContext.destination);
+    
+    whiteNoise.start(0);
+    setTimeout(() => whiteNoise.stop(), 3000);
+}
+
+
+
+function startTimer() {
+    clearInterval(gameState.timerInterval);
+    gameState.timeRemaining = gameState.timeLimit;
+    updateTimerDisplay();
+    
+    gameState.timerInterval = setInterval(() => {
+        gameState.timeRemaining--;
+        updateTimerDisplay();
+        
+        if (gameState.timeRemaining <= 0) {
+            clearInterval(gameState.timerInterval);
+            gameOver('time');
         }
+    }, 1000);
+}
+
+function updateTimerDisplay() {
+    const minutes = Math.floor(gameState.timeRemaining / 60);
+    const seconds = gameState.timeRemaining % 60;
+    const display = seconds < 10 ? `${minutes}:0${seconds}` : `${minutes}:${seconds}`;
+    document.getElementById('timer-display').textContent = display;
+    
+    if (gameState.timeRemaining <= 10) {
+        document.getElementById('timer-display').style.color = '#ff6b35';
+    } else {
+        document.getElementById('timer-display').style.color = '#eaeaea';
+    } 
+}
+
+    function gameOver(reason) {
+    
+    document.getElementById('game-screen').style.display = 'none';
+    document.getElementById('lose-screen').style.display = 'flex';
+
+
+}
+
+
+
+
+        
 
         function attemptFix() {
-            if (gameState.activeProblems.includes(gameState.currentComponent)) {
-                gameState.problemsFixed++;
-                gameState.currentLives = 2;
-                
-                const index = gameState.activeProblems.indexOf(gameState.currentComponent);
-                gameState.activeProblems.splice(index, 1);
-                
-                document.getElementById('progress-display').textContent = gameState.problemsFixed + ' / ' + gameState.problemsToFix;
-                
-                closeModal();
-                
-                if (gameState.problemsFixed === gameState.problemsToFix) {
-                    setTimeout(() => {
-                        document.getElementById('game-screen').style.display = 'none';
-                        document.getElementById('win-screen').style.display = 'flex';
-                    }, 500);
-                }
-            } else {
-                closeModal();
-                showSparks();
-                
-                setTimeout(() => {
-                    gameState.currentLives--;
-                    
-                    const hearts = '❤️'.repeat(gameState.currentLives);
-                    document.getElementById('lives-display').textContent = hearts;
-                    
-                    if (gameState.currentLives === 0) {
-                        setTimeout(() => {
-                            document.getElementById('game-screen').style.display = 'none';
-                            document.getElementById('lose-screen').style.display = 'flex';
-                        }, 1000);
-                    } else {
-                        alert('⚡ YOU DIDN\'T TURN OFF THE POWER!\n\nWrong component! Lives remaining: ' + gameState.currentLives);
-                    }
-                }, 500);
-                return;
-            }
+    closeModal();
+    showRepairInterface(gameState.currentComponent);
+}
+
+function showRepairInterface(componentId) {
+    const repairInterface = document.getElementById('repair-interface');
+    document.getElementById('repair-title').textContent = 'Fix the Component';
+    
+    if (componentId === 'wall-switch') {
+        const hasProblem = gameState.activeProblems.includes('wall-switch');
+        repairInterface.innerHTML = `
+            <div class="switch-container">
+                <div class="switch-plate">
+                    <div class="switch-toggle ${hasProblem ? '' : 'on'}" 
+                         onclick="toggleSwitch(this)"></div>
+                </div>
+            </div>
+            <p style="margin-top: 20px; color: #f7931e;">${hasProblem ? 'Click the switch to flip it ON' : 'Switch is already ON'}</p>
+        `;
+        if (!hasProblem) {
+            document.getElementById('complete-repair-btn').style.display = 'block';
         }
-    </script>
+    } else if (componentId === 'circuit-breaker') {
+        const hasProblem = gameState.activeProblems.includes('circuit-breaker');
+        repairInterface.innerHTML = `
+            <div class="breaker-panel">
+                <div class="breaker-row">
+                    <div>
+                        <div class="breaker-switch" onclick="resetBreaker(this)"></div>
+                        <div class="breaker-label">Kitchen</div>
+                    </div>
+                    <div>
+                        <div class="breaker-switch ${hasProblem ? 'tripped' : ''}" onclick="resetBreaker(this)"></div>
+                        <div class="breaker-label">Bedroom</div>
+                    </div>
+                </div>
+                <div class="breaker-row">
+                    <div>
+                        <div class="breaker-switch" onclick="resetBreaker(this)"></div>
+                        <div class="breaker-label">Bathroom</div>
+                    </div>
+                    <div>
+                        <div class="breaker-switch" onclick="resetBreaker(this)"></div>
+                        <div class="breaker-label">Living</div>
+                    </div>
+                </div>
+            </div>
+            <p style="margin-top: 20px; color: #f7931e;">${hasProblem ? 'Click the RED tripped breaker to reset it' : 'All breakers are normal'}</p>
+        `;
+        if (!hasProblem) {
+            document.getElementById('complete-repair-btn').style.display = 'block';
+        }
+    } else if (componentId === 'junction-box') {
+        const hasProblem = gameState.activeProblems.includes('junction-box');
+        const wireClass = hasProblem ? '' : 'connected';
+        repairInterface.innerHTML = `
+            <div class="junction-box">
+                <div class="wire red ${wireClass}" onclick="connectWire(this)">
+                    <span class="wire-label" style="color: #d32f2f;">Hot</span>
+                </div>
+                <div class="wire black ${wireClass}" onclick="connectWire(this)">
+                    <span class="wire-label" style="color: #212121;">Neutral</span>
+                </div>
+                <div class="wire white ${wireClass}" onclick="connectWire(this)">
+                    <span class="wire-label" style="color: #757575;">Ground</span>
+                </div>
+            </div>
+            <p style="margin-top: 20px; color: #f7931e;">${hasProblem ? 'Click the wires with GAPS to reconnect them' : 'All wires are connected properly'}</p>
+        `;
+        if (!hasProblem) {
+            document.getElementById('complete-repair-btn').style.display = 'block';
+        }
+    } else if (componentId === 'ceiling-fan') {
+        const hasProblem = gameState.activeProblems.includes('ceiling-fan');
+        const chainClass = hasProblem ? '' : 'pulled';
+        repairInterface.innerHTML = `
+            <div class="fan-container">
+                <div class="fan-body"></div>
+                <div class="pull-chain-container">
+                    <div class="pull-chain"></div>
+                    <div class="chain-knob ${chainClass}" onclick="pullChain(this)"></div>
+                </div>
+            </div>
+            <p style="margin-top: 20px; color: #f7931e;">${hasProblem ? 'Pull the chain to turn the fan ON' : 'Chain is already pulled'}</p>
+        `;
+        if (!hasProblem) {
+            document.getElementById('complete-repair-btn').style.display = 'block';
+        }
+    } else {
+        repairInterface.innerHTML = `<p>Click Complete Repair to continue</p>`;
+        document.getElementById('complete-repair-btn').style.display = 'block';
+    }
+    
+    document.getElementById('repair-modal').style.display = 'flex';
+}
+
+
+     
+        
+
+      if (componentId === 'ceiling-fan') {
+    const hasProblem = gameState.activeProblems.includes('ceiling-fan');
+    const chainClass = hasProblem ? '' : 'pulled';
+    repairInterface.innerHTML = `
+        <div class="fan-container">
+            <div class="fan-body"></div>
+            <div class="pull-chain-container">
+                <div class="pull-chain"></div>
+                <div class="chain-knob ${chainClass}" onclick="pullChain(this)"></div>
+            </div>
+        </div>
+        <p style="margin-top: 20px; color: #f7931e;">${hasProblem ? 'Pull the chain to turn the fan ON' : 'Chain is already pulled'}</p>
+    `;
+    if (!hasProblem) {
+        document.getElementById('complete-repair-btn').style.display = 'block';
+    }
+}
+
+
+    
+    document.getElementById('repair-modal').style.display = 'flex';
+
+
+function toggleSwitch(element) {
+    element.classList.toggle('on');
+    document.getElementById('complete-repair-btn').style.display = 'block';
+}
+
+function resetBreaker(element) {    
+    if (element.classList.contains('tripped')) {
+        element.classList.remove('tripped');
+        document.getElementById('complete-repair-btn').style.display = 'block';
+    }
+
+}
+
+function connectWire(element) {    
+    element.classList.add('connected');
+    
+    const allWires = document.querySelectorAll('.wire');
+    const allConnected = Array.from(allWires).every(wire => wire.classList.contains('connected'));
+    
+    if (allConnected) {
+        document.getElementById('complete-repair-btn').style.display = 'block';
+    }
+
+
+}
+
+function pullChain(element) {    
+    element.classList.add('pulled');
+    document.getElementById('complete-repair-btn').style.display = 'block';
+}
+
+function closeRepairModal() {    
+    document.getElementById('repair-modal').style.display = 'none';
+    document.getElementById('complete-repair-btn').style.display = 'none';
+}
+
+function completeRepair() {
+    document.getElementById('repair-modal').style.display = 'none';
+    document.getElementById('complete-repair-btn').style.display = 'none';
+    
+    if (gameState.activeProblems.includes(gameState.currentComponent)) {
+        gameState.problemsFixed++;
+        gameState.currentLives = 2;
+        
+        const index = gameState.activeProblems.indexOf(gameState.currentComponent);
+        gameState.activeProblems.splice(index, 1);
+        
+        document.getElementById('progress-display').textContent = gameState.problemsFixed + ' / ' + gameState.problemsToFix;
+        
+        alert('✅ CORRECT! Problem fixed! Lives reset to 2.');
+        
+        if (gameState.problemsFixed === gameState.problemsToFix) {
+            playWindSound();
+            setTimeout(() => {
+                document.getElementById('game-screen').style.display = 'none';
+                document.getElementById('win-screen').style.display = 'flex';
+            }, 500);
+        }
+    } else {
+        showSparks();
+        playBzztSound();
+        
+        setTimeout(() => {
+            gameState.currentLives--;
+            
+            const hearts = '❤️'.repeat(gameState.currentLives);
+            document.getElementById('lives-display').textContent = hearts;
+            
+            if (gameState.currentLives === 0) {
+                clearInterval(gameState.timerInterval);
+                setTimeout(() => {
+                    document.getElementById('game-screen').style.display = 'none';
+                    document.getElementById('lose-screen').style.display = 'flex';
+                }, 1000);
+            } else {
+                alert('⚡ YOU DIDN\'T TURN OFF THE POWER!\n\nWrong component! Lives remaining: ' + gameState.currentLives);
+            }
+        }, 500);
+    }
+}
+
+</script>
     
 </body>
 </html>
