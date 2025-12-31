@@ -404,6 +404,15 @@
     background: linear-gradient(90deg, #f5f5f5 0%, #f5f5f5 45%, transparent 45%, transparent 55%, #f5f5f5 55%, #f5f5f5 100%);
 }
 
+.wire.green {
+    background: linear-gradient(90deg, #4CAF50 0%, #4CAF50 45%, transparent 45%, transparent 55%, #4CAF50 55%, #4CAF50 100%);
+}
+
+.wire.green.connected {
+    background: #4CAF50;
+    box-shadow: 0 0 15px rgba(76, 175, 80, 0.6);
+}
+
 .wire.white.connected {
     background: #f5f5f5;
     box-shadow: 0 0 15px rgba(245, 245, 245, 0.6);
@@ -487,6 +496,10 @@
         <p>A homeowner's ceiling fan isn't working. You must troubleshoot and find the problem!</p>
         
         <p><strong>⚠️ Warning:</strong> Choose carefully! Wrong attempts cost lives and trigger sparks!</p>
+
+        <p style="font-style: italic; color: #f7931e; margin-top: 20px;">
+            "NO MATTER THE LOAD, WE DO IT BY CODE."
+        </p>
         
         <h3>Select Difficulty:</h3>
         
@@ -588,10 +601,10 @@
             
             if (difficulty === 'easy') {
                 gameState.problemsToFix = 1;
-                gameState.timeLimit = 30;
+                gameState.timeLimit = 60;
             } else if (difficulty === 'medium') {
                 gameState.problemsToFix = 2;
-                gameState.timeLimit = 45;
+                gameState.timeLimit = 60;
 
             } else if (difficulty === 'hard') {
                 gameState.problemsToFix = 3;
@@ -825,14 +838,14 @@ function showRepairInterface(componentId) {
         const wireClass = hasProblem ? '' : 'connected';
         repairInterface.innerHTML = `
             <div class="junction-box">
-                <div class="wire red ${wireClass}" onclick="connectWire(this)">
-                    <span class="wire-label" style="color: #d32f2f;">Hot</span>
-                </div>
                 <div class="wire black ${wireClass}" onclick="connectWire(this)">
-                    <span class="wire-label" style="color: #212121;">Neutral</span>
+                    <span class="wire-label" style="color: #212121;">Hot</span>
                 </div>
                 <div class="wire white ${wireClass}" onclick="connectWire(this)">
-                    <span class="wire-label" style="color: #757575;">Ground</span>
+                    <span class="wire-label" style="color: #757575;">Neutral</span>
+                </div>
+                <div class="wire green ${wireClass}" onclick="connectWire(this)">
+    <span class="wire-label" style="color: #4CAF50;">Ground</span>
                 </div>
             </div>
             <p style="margin-top: 20px; color: #f7931e;">${hasProblem ? 'Click the wires with GAPS to reconnect them' : 'All wires are connected properly'}</p>
