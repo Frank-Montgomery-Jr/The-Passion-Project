@@ -40,10 +40,78 @@
         }
 
         #welcome-screen {
-            text-align: center;
-            max-width: 600px;
+            max-width: 1400px;    
             margin: 50px auto;
+            padding: 0 20px
         }
+
+        .welcome-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+    
+}
+
+.welcome-left, .welcome-right {
+    padding: 20px;
+}
+
+.welcome-left {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.welcome-center {
+    text-align: center;
+}
+
+.decorative-fan {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.dec-fan-body {
+    width: 120px;
+    height: 40px;
+    background: linear-gradient(180deg, #555, #333);
+    border-radius: 50%;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    margin-top: 20px;
+}
+
+.dec-fan-blades {
+    width: 180px;
+    height: 180px;
+    position: absolute;
+    top: -70px;
+    left: -30px;
+    animation: spinFan 2s linear infinite;
+}
+
+.dec-fan-blades .blade {
+    position: absolute;
+    width: 70px;
+    height: 20px;
+    background: linear-gradient(90deg, #8B4513, #654321);
+    border-radius: 35px 8px 35px 8px;
+    top: 50%;
+    left: 50%;
+    transform-origin: 0% 50%;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+
+.dec-fan-blades .blade:nth-child(1) { transform: rotate(0deg) translateX(15px); }
+.dec-fan-blades .blade:nth-child(2) { transform: rotate(72deg) translateX(15px); }
+.dec-fan-blades .blade:nth-child(3) { transform: rotate(144deg) translateX(15px); }
+.dec-fan-blades .blade:nth-child(4) { transform: rotate(216deg) translateX(15px); }
+.dec-fan-blades .blade:nth-child(5) { transform: rotate(288deg) translateX(15px); }
+
+
 
         h2 {
             color: #f7931e;
@@ -435,14 +503,52 @@
 }
 
 .fan-body {
-    width: 120px;
-    height: 120px;
-    margin: 0 auto 20px;
-    background: radial-gradient(circle, #666, #333);
+    width: 150px;
+    height: 50px;
+    margin: 0 auto 10px;
+    background: linear-gradient(180deg, #555, #333);
     border-radius: 50%;
     position: relative;
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
+
+.fan-blades {
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    top: -75px;
+    left: -25px;
+    animation: spinFan 2s linear infinite paused;
+}
+
+.fan-blades.spinning {
+    animation-play-state: running;
+}
+
+.blade {
+    position: absolute;
+    width: 80px;
+    height: 25px;
+    background: linear-gradient(90deg, #8B4513, #654321);
+    border-radius: 40px 10px 40px 10px;
+    top: 50%;
+    left: 50%;
+    transform-origin: 0% 50%;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+
+.blade:nth-child(1) { transform: rotate(0deg) translateX(20px); }
+.blade:nth-child(2) { transform: rotate(72deg) translateX(20px); }
+.blade:nth-child(3) { transform: rotate(144deg) translateX(20px); }
+.blade:nth-child(4) { transform: rotate(216deg) translateX(20px); }
+.blade:nth-child(5) { transform: rotate(288deg) translateX(20px); }
+
+@keyframes spinFan {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+
 
 .pull-chain-container {
     margin-top: 20px;
@@ -491,22 +597,64 @@
     <h1>⚡ Ceiling Fan Troubleshooting Game</h1>
     
     <div id="welcome-screen">
-        <h2>Welcome, Electrician!</h2>
-        
-        <p>A homeowner's ceiling fan isn't working. You must troubleshoot and find the problem!</p>
-        
-        <p><strong>⚠️ Warning:</strong> Choose carefully! Wrong attempts cost lives and trigger sparks!</p>
-
-        <p style="font-style: italic; color: #f7931e; margin-top: 20px;">
-            "NO MATTER THE LOAD, WE DO IT BY CODE."
-        </p>
-        
-        <h3>Select Difficulty:</h3>
-        
-        <button onclick="startGame('easy')">Easy - 1 Problem</button>
-        <button onclick="startGame('medium')">Medium - 2 Problems</button>
-        <button onclick="startGame('hard')">Hard - 3 Problems</button>
+    <div class="welcome-grid">
+        <div class="welcome-left">
+            <div class="decorative-fan">
+        <div class="dec-fan-body">
+            <div class="dec-fan-blades spinning">
+                <div class="blade"></div>
+                <div class="blade"></div>
+                <div class="blade"></div>
+                <div class="blade"></div>
+                <div class="blade"></div>
+            </div>
+        </div>
+        <div class="pull-chain-container">
+            <div class="pull-chain"></div>
+            <div class="chain-knob pulled"></div>
+        </div>
     </div>
+</div>
+
+            
+        
+        <div class="welcome-center">
+            <h2>Welcome, Electrician!</h2>
+            
+            <p>A homeowner's ceiling fan isn't working. You must troubleshoot and find the problem!</p>
+            
+            <p><strong>⚠️ Warning:</strong> Choose carefully! Wrong attempts cost lives and trigger sparks!</p>
+            
+            <p style="font-style: italic; color: #f7931e; margin-top: 20px;">
+                "NO MATTER THE LOAD, WE DO IT BY CODE."
+            </p>
+            
+            <h3>Select Difficulty:</h3>
+            
+            <button onclick="startGame('easy')">Easy - 1 Problem</button>
+            <button onclick="startGame('medium')">Medium - 2 Problems</button>
+            <button onclick="startGame('hard')">Hard - 3 Problems</button>
+        </div>
+        
+        <div class="welcome-right">
+            <h3 style="color: #ff6b35; margin-bottom: 20px;">⚡ Safety Tips</h3>
+            <ul style="text-align: left; line-height: 2;">
+                <li>Always turn off power first</li>
+                <li>Check breakers before repairs</li>
+                <li>Inspect wire connections</li>
+                <li>Test switches carefully</li>
+            </ul>
+            
+            <h3 style="color: #ff6b35; margin-top: 30px; margin-bottom: 20px;">🎮 How to Play</h3>
+            <ul style="text-align: left; line-height: 2;">
+                <li>Inspect each component</li>
+                <li>Fix the broken parts</li>
+                <li>Watch your lives!</li>
+                <li>Beat the timer!</li>
+            </ul>
+        </div>
+    </div>
+</div>
 
     <div id="game-screen" style="display: none;">
         <div id="game-info">
@@ -554,7 +702,7 @@
 
     <div id="repair-modal" style="display: none;">    
     <div id="repair-modal-content">
-        <span id=" close=repair-modal" onclick="closeRepairModal()">&times;</span>
+        <span id="close-repair-modal" onclick="closeRepairModal()">&times;</span>
         <h2 id="repair-title">Fix the Component</h2>
         <div id="repair-interface"></div>
         <button id="complete-repair-btn" onclick="completeRepair()" style="display: none;">Complete Repair</button>
@@ -855,38 +1003,18 @@ function showRepairInterface(componentId) {
         }
     } else if (componentId === 'ceiling-fan') {
         const hasProblem = gameState.activeProblems.includes('ceiling-fan');
-        const chainClass = hasProblem ? '' : 'pulled';
-        repairInterface.innerHTML = `
-            <div class="fan-container">
-                <div class="fan-body"></div>
-                <div class="pull-chain-container">
-                    <div class="pull-chain"></div>
-                    <div class="chain-knob ${chainClass}" onclick="pullChain(this)"></div>
-                </div>
-            </div>
-            <p style="margin-top: 20px; color: #f7931e;">${hasProblem ? 'Pull the chain to turn the fan ON' : 'Chain is already pulled'}</p>
-        `;
-        if (!hasProblem) {
-            document.getElementById('complete-repair-btn').style.display = 'block';
-        }
-    } else {
-        repairInterface.innerHTML = `<p>Click Complete Repair to continue</p>`;
-        document.getElementById('complete-repair-btn').style.display = 'block';
-    }
-    
-    document.getElementById('repair-modal').style.display = 'flex';
-}
-
-
-     
-        
-
-      if (componentId === 'ceiling-fan') {
-    const hasProblem = gameState.activeProblems.includes('ceiling-fan');
     const chainClass = hasProblem ? '' : 'pulled';
     repairInterface.innerHTML = `
         <div class="fan-container">
-            <div class="fan-body"></div>
+            <div class="fan-body">
+                <div class="fan-blades ${!hasProblem ? 'spinning' : ''}">
+                    <div class="blade"></div>
+                    <div class="blade"></div>
+                    <div class="blade"></div>
+                    <div class="blade"></div>
+                    <div class="blade"></div>
+                </div>
+            </div>
             <div class="pull-chain-container">
                 <div class="pull-chain"></div>
                 <div class="chain-knob ${chainClass}" onclick="pullChain(this)"></div>
@@ -899,9 +1027,16 @@ function showRepairInterface(componentId) {
     }
 }
 
+  else {
+      repairInterface.innerHTML = `<p>Click Complete Repair to continue</p>`;
+    document.getElementById('complete-repair-btn').style.display = 'block';
+}   
+
+
 
     
     document.getElementById('repair-modal').style.display = 'flex';
+}
 
 
 function toggleSwitch(element) {
